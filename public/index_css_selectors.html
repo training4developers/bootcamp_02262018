@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>My First Web Page</title>
+    <style>
+
+      /* li:nth-child(2n+1) {
+        color: blue;
+      } */
+
+      .country-text li:nth-child(2) {
+        color:blue;
+      }
+
+      div > span {
+        color:blue;
+      }
+
+      input:invalid {
+        border: 1px solid red;
+      }
+
+      /* input:valid + span { */
+      input:not(:invalid) + span {
+        display:none;
+      }
+
+      /* input:invalid + span {
+        display:inline;
+      }       */
+
+      form:valid > ul {
+        display:none;
+      }
+
+      input:focus {
+        border: 1px solid blue;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+
+    <!-- <ul>
+      <li>India</li>
+      <li>Mexico</li>
+      <li>China</li>
+      <li>Burma</li>
+      <li>United States</li>
+      <li>California</li>
+      <li>Texas</li>
+    </ul> -->
+
+    <!-- <div>
+      some text <p><span>some content</span></p>
+    </div> -->
+
+    <form>
+
+      <ul id="validation-summary">
+        <li>Form is invalid</li>
+      </ul>
+
+      <input type="text" required value="">
+      <span>
+        Field is required.
+      </span>
+
+    </form>
+  
+  </body>
+
+</html>
+
