@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      const age = 32;
+      const firstName = 'Bob';
+
+      const propName = 'lastName';
+
+      const person = {
+        age,
+        _firstName: firstName,
+        [ propName ]: 'Smith',
+        getFullName() {
+          return this.firstName + ' ' + this.lastName;
+        },
+        get firstName() {
+          console.log('getting first name');
+          return this._firstName;
+        },
+        set firstName(value) {
+          console.log('setting first name');
+          this._firstName = value;
+        }
+      };
+
+      console.dir(person);
+      console.log(person.getFullName());
+
+      person.firstName = 'Tim';
+      console.log(person.firstName);
+
+    
+    </script>
+  
+  </body>
+
+</html>
+

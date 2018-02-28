@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      const parent = {
+        name: 'J',
+        amt: 10000,
+        address: {
+          city: 'Saratoga',
+          country: 'Republic of California',
+        }
+      };
+
+      const child = Object.create(parent);
+      child.name = 'A';
+
+      console.log(child.amt);
+
+      parent.amt = 20000;
+      console.log(child.amt);
+
+      child.amt = 15;
+      console.log(child.amt);
+
+      console.log(child);
+
+      delete child.amt;
+      console.log(child.amt);
+
+      console.log(child.address.city);
+
+      // child.address.city = 'Paris';
+      child.address = {
+        city: 'Paris',
+      };
+
+      console.log(parent.address.city);
+
+      
+      
+
+    
+    </script>
+  
+  </body>
+
+</html>
+

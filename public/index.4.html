@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+      
+      const o = {
+        id: 2,
+        outer: function(a,b,c) {
+          console.log(this);
+          console.log(a,b,c);
+        },
+      };
+
+      o.outer.call({ id: 3 },1,2,3);
+      o.outer.apply({ id: 4 },[1,2,3]);
+
+      const fn = o.outer.bind({ id: 5});
+
+      fn();
+
+      function myBind(fn, context) {
+        return function() {
+          fn.apply(context, arguments);
+        }
+      }
+
+      const fn2 = myBind(o.outer, { id: 6 });
+      fn2();
+    
+    </script>
+  
+  </body>
+
+</html>
+

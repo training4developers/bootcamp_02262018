@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      const parent = {
+        lastName: 'Jacob Chandy',
+      };
+
+      const child = Object.create(parent);
+
+      child.firstName = 'Prince';
+
+      console.log(child.firstName);
+      console.log(child.lastName);
+
+      console.dir(child);
+
+      for (let propName in child) {
+        console.log(propName);
+      }
+
+      parent.homeTown = 'Kerala';
+
+      for (let propName in child) {
+        console.log(propName);
+      }
+
+      console.log(child.hasOwnProperty('homeTown'));
+
+      console.log(Object.getOwnPropertyNames(child));
+
+      Object.defineProperty(child, 'shoeColor', {
+        configurable: true,
+        value: 'white',
+        writable: true,
+        enumerable: false,
+      });
+
+      console.log(Object.getOwnPropertyNames(child));
+      console.log(Object.keys(child));
+    
+    </script>
+  
+  </body>
+
+</html>
+

@@ -1,0 +1,25 @@
+Exercise #2
+
+1. Create an Account class.
+
+Account Number data property
+First Name data property
+Last Name data property
+
+All three data properties should use getter/setter functions.
+
+Add a function called deposit to the Account class. When deposit is called record the transaction in an array of transactions. The parameter for deposit should be the amount to deposit.
+
+Add a function to the Account class which returns the account balance. Calculate the account balance from the transactions list assuming a starting balance of 0.
+
+2. Create a Checking Account sub class (inherits from Account)
+
+Add a new function called withdrawal. For withdrawal add a transaction to the account's transaction's list reducing the amount of money in the account.
+
+3. Create a Savings Account sub class (inherits from Account).
+
+Add a function called transfer. The transfer function should accept another account object and the amount to transfer. The savings account will reduce its amount by the transfer amount and the other account will increase its amount by the transfer amount.
+
+4. Add a function to the appropriate class to display a list of all transactions for the account in the console along with the final balance of the account.
+
+5. Solve world peace.

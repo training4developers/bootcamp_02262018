@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+      
+      function outer() {
+
+        console.log('outer: ', this);
+
+        // var that = this;
+
+        // function inner() {
+        //   console.log('inner: ', this);
+        // }
+
+        // const inner = () => {
+        //   console.log('inner: ', this);
+        // };
+
+        // inner();
+      }
+
+      const o = {
+        id: 2,
+        outer: outer,
+      };
+
+      o.outer();
+
+      window.setTimeout(o.outer(), 2000);
+
+
+
+
+
+
+
+      // function doIt() {
+      //   console.log(this);
+      // }
+
+      // doIt();
+
+      // window.doIt();
+
+      // const o = {
+      //   id: 2,
+      //   doIt: doIt,
+      // };
+
+      // o.doIt();
+
+      // console.log(o.doIt === window.doIt);
+    
+    </script>
+  
+  </body>
+
+</html>
+
