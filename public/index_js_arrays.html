@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      // const nums = [ 1, false, function() { }, {}, [], 'this is fun' ];
+
+      // console.log(typeof nums);
+      // console.log(nums instanceof Array);
+      // console.log(Array.isArray(nums));
+
+      // console.log(nums.length);
+      // console.log(nums['0']);
+
+      // nums.someProp = 'test';
+
+      // console.dir(nums);
+
+      // const nums = new Array(10, 20);
+      // console.dir(nums);
+
+      // const nums = [ 'xanadu', 'amaranth', 'rose' ];
+
+      // console.log(nums.push('periwinkle'));
+      // console.log(nums.push('chartreuse'));
+
+      // console.log(nums.pop());
+
+      // console.log(nums.unshift('saffron'));
+      // console.log(nums.shift());
+
+      // console.log(nums.splice(2, 1, 'cyan'));
+      
+      // nums.reverse();
+
+      // nums.sort()
+
+      // console.dir(nums);
+
+      const nums = [ 1,2,3,4,5 ];
+
+      // nums.forEach(function(item, index, originalArray) {
+      //   console.log(item, index, originalArray);
+      // });
+
+      // const newNums = nums.map(function(item) {
+      //   return item ** 2;
+      // });
+
+      // const newNums = nums.filter(function(item) {
+      //   return (item.id != 345);
+      // });
+
+      const itemIndex = nums.findIndex(function(item) {
+        return item === 3;
+      });
+
+      console.log(itemIndex);
+
+
+      // let newNums = nums.concat(9);
+      // newNums = newNums.slice(1, 3);
+
+      // newNums = newNums.concat().reverse();
+
+      // console.dir(nums);
+      // console.dir(newNums);
+      // console.log(nums === newNums);
+
+    
+    </script>
+  
+  </body>
+
+</html>
+

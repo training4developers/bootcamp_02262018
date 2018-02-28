@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      // function declaration
+      function doIt(fn) {
+        console.log('did it');
+        fn('a message of hope, peace and love and xanadu');
+      }
+
+      // function expression
+      const doSomething = function() {
+        console.log('did something');
+      };
+
+      doIt(function(msg) {
+        console.log('this is cool: ' + msg);
+      });
+
+    
+    </script>
+  
+  </body>
+
+</html>
+
