@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      let a = Object.freeze({
+        id: 1,
+        name: 'Bob',
+        color: 'blue',
+      });
+
+      // a = Object.assign({}, a, { id: 2 });
+      a = {
+        ...a,
+        id: 2,
+      };
+
+      console.log(a);
+
+      // const b = {};
+
+      // b.id = a.id;
+      // b.name = a.name;
+      // b.color = a.color;
+
+      // Object.keys(a).forEach(key => {
+      //   b[key] = a[key];
+      // });
+// <!-- 
+//       Object.assign(b, a);
+
+//       console.log(b); -->
+
+    
+    </script>
+  
+  </body>
+
+</html>
+

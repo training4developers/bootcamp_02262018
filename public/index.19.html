@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      const outer = () => {
+
+        let t = 2;
+
+        setTimeout(() => t = 4, 2000);
+
+        const inner = () => {
+          console.log(t);
+        };
+
+        return inner;
+      }
+
+      const fn = outer();
+      fn();
+
+      setTimeout(fn, 4000);
+    
+    </script>
+  
+  </body>
+
+</html>
+

@@ -12,57 +12,66 @@
 
       'use strict';
 
-      class Person {
+      // setTimeout(() => {
+      //     console.log('1');
+      //     setTimeout(() => {
+      //         console.log('2');
+      //         setTimeout(() => {
+      //             console.log('3');
+      //         }, 500);
+      //     }, 1000);
+      // }, 2000);
 
-        static create(fullName) {
-          return new Person(...fullName.split(' '));
+      // const con = db.open("...");
+
+      // const rst = con.query('select * from whatever')
+
+      // rst.forEach(fn() {})
+
+      // db.open("...", function(con) {
+
+      //   con.query('select...', function(rst) {
+
+      //     rst.forEach();
+
+      //   });
+
+      // })
+
+      //  console.log('made it here');
+
+      const allDone = () => {
+        console.log('all done');
+      };
+
+      let counter = 0;
+
+      counter++;
+      setTimeout(() => {
+        console.log('a');
+        counter--;
+        if (counter === 0) {
+          allDone();
         }
+      }, 2000);
 
-        constructor(firstName, lastName) {
-          this._firstName = firstName;
-          this.lastName = lastName;
+      counter++;
+      setTimeout(() => {
+        console.log('b');
+        counter--;
+        if (counter === 0) {
+          allDone();
         }
+      }, 1000);
 
-        get firstName() {
-          return this._firstName;
+      counter++;
+      setTimeout(() => {
+        console.log('c');
+        counter--;
+        if (counter === 0) {
+          allDone();
         }
-
-        set firstName(value) {
-          this._firstName = value;
-        }
-
-        getFullName() {
-          return this.firstName + ' ' + this.lastName;
-        }
-      }
-
-      class Employee extends Person {
-
-        constructor(firstName, lastName) {
-          super(firstName, lastName);
-        }
-
-        getFullName() {
-          return super.getFullName() + '!!!!';
-        }        
-      }
-
-      const emp = new Employee('Bob', 'Smith');
-      console.dir(emp.getFullName());
-
-
-      // function Person2(firstName, lastName) {
-      //   this.firstName = firstName;
-      //   this.lastName = lastName;
-      // }
-
-      // Person2.create = function(fullName) {
-      //   return new Person(...fullName.split(' '));
-      // }
-
-      // Person2.prototype.getFullName = function() {
-      //   return this.firstName + ' ' + this.lastName;
-      // };
+      }, 3000);
 
 
     

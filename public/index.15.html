@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      class Person {
+
+        static create(fullName) {
+          return new Person(...fullName.split(' '));
+        }
+
+        constructor(firstName, lastName) {
+          this._firstName = firstName;
+          this.lastName = lastName;
+        }
+
+        get firstName() {
+          return this._firstName;
+        }
+
+        set firstName(value) {
+          this._firstName = value;
+        }
+
+        getFullName() {
+          return this.firstName + ' ' + this.lastName;
+        }
+      }
+
+      class Employee extends Person {
+
+        constructor(firstName, lastName) {
+          super(firstName, lastName);
+        }
+
+        getFullName() {
+          return super.getFullName() + '!!!!';
+        }        
+      }
+
+      const emp = new Employee('Bob', 'Smith');
+      console.dir(emp.getFullName());
+
+
+      // function Person2(firstName, lastName) {
+      //   this.firstName = firstName;
+      //   this.lastName = lastName;
+      // }
+
+      // Person2.create = function(fullName) {
+      //   return new Person(...fullName.split(' '));
+      // }
+
+      // Person2.prototype.getFullName = function() {
+      //   return this.firstName + ' ' + this.lastName;
+      // };
+
+
+    
+    </script>
+  
+  </body>
+
+</html>
+

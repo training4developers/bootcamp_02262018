@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      // const createPerson = (fn) => {
+
+      //   // private
+      //   //let _fn = fn;
+
+      //   return {
+      //     _fn: fn,
+      //     get firstName() {
+      //       return this._fn;
+      //     },
+      //     set firstName(value) {
+      //       this._fn = value;
+      //     }
+      //   };
+      // };
+
+      // const p = createPerson('Bob');
+      // p._fn = 'something else';
+      // p.firstName = 'Tim';
+      // console.log(p.firstName);
+
+
+      const outer = () => {
+
+        let t = 2;
+
+        const doIt = () => {
+          console.log(t);
+        };
+
+        doIt();
+        console.dir(doIt);
+      }
+
+      outer();
+    
+    </script>
+  
+  </body>
+
+</html>
+
