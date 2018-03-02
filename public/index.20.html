@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <title>Let's Learn JavaScript</title>
+  </head>
+
+  <body>
+
+    <script>
+
+      'use strict';
+
+      // setTimeout(() => {
+      //     console.log('1');
+      //     setTimeout(() => {
+      //         console.log('2');
+      //         setTimeout(() => {
+      //             console.log('3');
+      //         }, 500);
+      //     }, 1000);
+      // }, 2000);
+
+      // const con = db.open("...");
+
+      // const rst = con.query('select * from whatever')
+
+      // rst.forEach(fn() {})
+
+      // db.open("...", function(con) {
+
+      //   con.query('select...', function(rst) {
+
+      //     rst.forEach();
+
+      //   });
+
+      // })
+
+      //  console.log('made it here');
+
+      const allDone = () => {
+        console.log('all done');
+      };
+
+      let counter = 0;
+
+      counter++;
+      setTimeout(() => {
+        console.log('a');
+        counter--;
+        if (counter === 0) {
+          allDone();
+        }
+      }, 2000);
+
+      counter++;
+      setTimeout(() => {
+        console.log('b');
+        counter--;
+        if (counter === 0) {
+          allDone();
+        }
+      }, 1000);
+
+      counter++;
+      setTimeout(() => {
+        console.log('c');
+        counter--;
+        if (counter === 0) {
+          allDone();
+        }
+      }, 3000);
+
+
+    
+    </script>
+  
+  </body>
+
+</html>
+
