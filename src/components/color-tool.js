@@ -22,7 +22,7 @@ export class ColorTool extends React.Component {
   render() {
 
     return <div>
-      <ToolHeader headerText="Color Tool" />
+      <ToolHeader headerText2={2} />
       <ul>
         {this.state.colors.map(color => <li key={color}>{color}</li>)}
       </ul>
