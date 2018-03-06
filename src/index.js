@@ -1,161 +1,126 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import * as ReactDOM from 'react-dom';
-import { createStore, bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import * as PropTypes from 'prop-types';
+import { createStore, bindActionCreators, applyMiddleware } from 'redux';
+import { connect, Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-const reducer = (state = { result: 0, log: [] }, action) => {
-  switch (action.type) {
-    case 'ADD':
-      return {
-        ...state,
-        result: state.result + action.value,
-        log: state.log.concat({ op: '+', val: action.value }),
-      };
-    case 'SUBTRACT':
-      return state - action.value;
-    case 'MULTIPLY':
-      return state * action.value;
-    case 'DIVIDE':
-      return state / action.value;
+const reducer = (state = { colors: [] }, action) => {
+
+  console.dir(state);
+
+  switch(action.type) {
+
+    case 'REFRESH_REQUEST':
+      return state;
+    case 'REFRESH_DONE':
+      return { ...state, colors: action.colors };
+    case 'INSERT_REQUEST':
+      return state;
+    case 'INSERT_DONE':
+      return state;
     default:
       return state;
+
   }
+
 };
 
-// const createStore = (reducer) => {
+const appStore = createStore(reducer, applyMiddleware(thunk));
 
-//   let currentState = undefined;
-//   const subscriptions = [];
-
-//   return {
-//     getState: () => currentState,
-//     dispatch: action => {
-//       currentState = reducer(currentState, action);
-//       subscriptions.forEach(fn => fn());
-//     },
-//     subscribe: fn => subscriptions.push(fn),
-//   };
-
-// };
-
-const store = createStore(reducer);
-
-store.subscribe(() => {
-  console.log(store.getState());
+const createRefreshRequestAction = () => ({
+  type: 'REFRESH_REQUEST',
 });
 
-const createAddAction = value => ({ type: 'ADD', value });
-const createSubtractAction = value => ({ type: 'SUBTRACT', value });
-const createMultiplyAction = value => ({ type: 'MULTIPLY', value });
-const createDivideAction = value => ({ type: 'DIVIDE', value });
+const createRefreshDoneAction = colors => ({
+  type: 'REFRESH_DONE',
+  colors,
+});
 
-// const bindActionCreators = (actions, dispatch) => {
+const refresh = () => {
 
-//   const actionFns = {};
-//   Object.keys(actions).forEach(action => {
-//     actionFns[action] = value => dispatch(actions[action](value));
-//   });
-//   return actionFns;
-// };
+  return dispatch => {
 
-// const connect = (mapStateToPropsFn, mapDispatchToPropsFn) => {
+    dispatch(createRefreshRequestAction());
 
-//   return (PresentationalComponent) => {
+    return fetch('http://localhost:4000/colors')
+      .then(res => res.json())
+      .then(colors => dispatch(createRefreshDoneAction(colors)));
 
-//     return class ContainerComponent extends React.Component {
-
-//       static propTypes = {
-//         store: PropTypes.shape({
-//           dispatch: PropTypes.func.isRequired,
-//           getState: PropTypes.func.isRequired,
-//           subscribe: PropTypes.func.isRequired,
-//         }),
-//       };
-
-//       constructor(props) {
-//         super(props);
-//         this.dispatchProps = mapDispatchToPropsFn(props.store.dispatch);
-//       }
-
-//       componentDidMount() {
-//         this.unsubscribe = this.props.store.subscribe(() => {
-//           this.forceUpdate();
-//         });
-//       }
-
-//       componentWillUnmount() {
-//         if (this.unsubscribe) this.unsubscribe();
-//       }
-
-//       render() {
-//         const stateProps = mapStateToPropsFn(this.props.store.getState());
-//         return <PresentationalComponent {...this.dispatchProps} {...stateProps} />;
-//       }
-//     }
-//   };
-
-// };
-
-class CalculatorTool extends React.Component {
-
-  static propTypes = {
-    result: PropTypes.number.isRequired,
-    add: PropTypes.func.isRequired,
-    subtract: PropTypes.func.isRequired,
-    multiply: PropTypes.func.isRequired,
-    divide: PropTypes.func.isRequired,
   };
+};
 
-  static defaultProps = {
-    result: 0,
+const createInsertRequestAction = color => ({
+  type: 'INSERT_REQUEST',
+  color,
+});
+
+const createInsertDoneAction = color => ({
+  type: 'INSERT_DONE',
+  color,
+});
+
+const insert = color => {
+
+  return dispatch => {
+
+    dispatch(createInsertRequestAction(color))
+
+    return fetch('http://localhost:4000/colors', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(color)
+    })
+      .then(() => refresh()(dispatch));    
+
   };
-
-  componentDidMount() {
-    if (this.numInput) {
-      this.numInput.focus();
-    }
-  }
-
-  render() {
-
-    return <form>
-      <div>Result: {this.props.result}</div>
-      <div>
-        <label>Input:</label>
-        <input type="number" defaultValue={0} ref={input => this.numInput = input} />
-      </div>
-      <button type="button"
-        onClick={() => this.props.add(Number(this.numInput.value))}>+</button>
-      <button type="button"
-        onClick={() => this.props.subtract(Number(this.numInput.value))}>-</button>
-      <button type="button"
-        onClick={() => this.props.multiply(Number(this.numInput.value))}>*</button>
-      <button type="button"
-        onClick={() => this.props.divide(Number(this.numInput.value))}>/</button>
-    </form>;
-
-
-  }
 
 }
 
-const mapStateToProps = state => {
-  return { result: state };
-};
+const ColorTool = props => <div>
+  <ul>{props.colors.map(c => <li key={c.id}>{c.name}</li>)}</ul>
+  <button type="button" onClick={() => props.refresh()}>Refresh</button>
+  <form>
+    <div>Name:
+      <input type="text" defaultValue=""
+        ref={i => this.n = i} />
+    </div>
+    <div>HexCode:
+      <input type="color" defaultValue="#000000"
+        ref={i => this.h = i} />
+    </div>
+    <button type="button" onClick={
+      () => props.insert({
+        name: this.n.value, hexCode: this.h.value
+      })}>Add Color</button>
+  </form>
+</div>;
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({
-    add: createAddAction,
-    subtract: createSubtractAction,
-    multiply: createMultiplyAction,
-    divide: createDivideAction,
-  }, dispatch);
-};
+const ColorToolContainer = connect(
+  (state) => { console.log(state); return ({ colors: state.colors }); },
+  dispatch => bindActionCreators({ refresh, insert }, dispatch)
+)(ColorTool);
 
-const createContainer = connect(mapStateToProps, mapDispatchToProps);
 
-const CalculatorToolContainer = createContainer(CalculatorTool);
+ReactDOM.render(<Provider store={appStore}>
+  <ColorToolContainer />
+</Provider>, document.querySelector('main'));
 
-ReactDOM.render(<CalculatorToolContainer store={store} />, document.querySelector('main'));
+refresh()(appStore.dispatch);
 
+
+// collection url
+// fetch('http://localhost:4000/colors')
+//   .then(res => res.json())
+//   .then(colors => console.log(colors));
+
+// fetch('http://localhost:4000/colors', {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({
+//     name: 'Hot Pink',
+//     hexCode: '#FF69B4',
+//   })
+// })
+//   .then(res => res.json())
+//   .then(color => console.log(color));
