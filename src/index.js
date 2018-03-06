@@ -4,10 +4,14 @@ import * as ReactDOM from 'react-dom';
 import { createStore, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const reducer = (state = 0, action) => {
+const reducer = (state = { result: 0, log: [] }, action) => {
   switch (action.type) {
     case 'ADD':
-      return state + action.value;
+      return {
+        ...state,
+        result: state.result + action.value,
+        log: state.log.concat({ op: '+', val: action.value }),
+      };
     case 'SUBTRACT':
       return state - action.value;
     case 'MULTIPLY':
