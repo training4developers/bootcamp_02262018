@@ -1,5 +1,8 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import * as ReactDOM from 'react-dom';
+import { createStore, bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 const reducer = (state = 0, action) => {
   switch (action.type) {
@@ -7,26 +10,30 @@ const reducer = (state = 0, action) => {
       return state + action.value;
     case 'SUBTRACT':
       return state - action.value;
+    case 'MULTIPLY':
+      return state * action.value;
+    case 'DIVIDE':
+      return state / action.value;
     default:
       return state;
   }
 };
 
-const createStore = (reducer) => {
+// const createStore = (reducer) => {
 
-  let currentState = undefined;
-  const subscriptions = [];
+//   let currentState = undefined;
+//   const subscriptions = [];
 
-  return {
-    getState: () => currentState,
-    dispatch: action => {
-      currentState = reducer(currentState, action);
-      subscriptions.forEach(fn => fn());
-    },
-    subscribe: fn => subscriptions.push(fn),
-  };
+//   return {
+//     getState: () => currentState,
+//     dispatch: action => {
+//       currentState = reducer(currentState, action);
+//       subscriptions.forEach(fn => fn());
+//     },
+//     subscribe: fn => subscriptions.push(fn),
+//   };
 
-};
+// };
 
 const store = createStore(reducer);
 
@@ -36,53 +43,115 @@ store.subscribe(() => {
 
 const createAddAction = value => ({ type: 'ADD', value });
 const createSubtractAction = value => ({ type: 'SUBTRACT', value });
+const createMultiplyAction = value => ({ type: 'MULTIPLY', value });
+const createDivideAction = value => ({ type: 'DIVIDE', value });
 
-// const add = value => store.dispatch(createAddAction(value));
-// const subtract = value => store.dispatch(createSubtractAction(value));
+// const bindActionCreators = (actions, dispatch) => {
 
-const bindActionCreators = (actions, dispatch) => {
+//   const actionFns = {};
+//   Object.keys(actions).forEach(action => {
+//     actionFns[action] = value => dispatch(actions[action](value));
+//   });
+//   return actionFns;
+// };
 
-  const actionFns = {};
-  Object.keys(actions).forEach(action => {
-    actionFns[action] = value => dispatch(actions[action](value));
-  });
-  return actionFns;
-};
+// const connect = (mapStateToPropsFn, mapDispatchToPropsFn) => {
 
+//   return (PresentationalComponent) => {
 
-const { add, subtract } = bindActionCreators({
-  add: createAddAction,
-  subtract: createSubtractAction,
-}, store.dispatch);
+//     return class ContainerComponent extends React.Component {
 
-add(1);
-subtract(2);
-add(3);
-subtract(4);
-add(5);
+//       static propTypes = {
+//         store: PropTypes.shape({
+//           dispatch: PropTypes.func.isRequired,
+//           getState: PropTypes.func.isRequired,
+//           subscribe: PropTypes.func.isRequired,
+//         }),
+//       };
 
-class MyComp extends React.Component {
+//       constructor(props) {
+//         super(props);
+//         this.dispatchProps = mapDispatchToPropsFn(props.store.dispatch);
+//       }
 
-  constructor(props) {
-    super(props);
+//       componentDidMount() {
+//         this.unsubscribe = this.props.store.subscribe(() => {
+//           this.forceUpdate();
+//         });
+//       }
 
-    console.log('MyComp constructor called');
+//       componentWillUnmount() {
+//         if (this.unsubscribe) this.unsubscribe();
+//       }
+
+//       render() {
+//         const stateProps = mapStateToPropsFn(this.props.store.getState());
+//         return <PresentationalComponent {...this.dispatchProps} {...stateProps} />;
+//       }
+//     }
+//   };
+
+// };
+
+class CalculatorTool extends React.Component {
+
+  static propTypes = {
+    result: PropTypes.number.isRequired,
+    add: PropTypes.func.isRequired,
+    subtract: PropTypes.func.isRequired,
+    multiply: PropTypes.func.isRequired,
+    divide: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    result: 0,
+  };
+
+  componentDidMount() {
+    if (this.numInput) {
+      this.numInput.focus();
+    }
   }
 
   render() {
-    console.log('MyComp render');
-    return <h1>{this.props.state} rocks!</h1>;
+
+    return <form>
+      <div>Result: {this.props.result}</div>
+      <div>
+        <label>Input:</label>
+        <input type="number" defaultValue={0} ref={input => this.numInput = input} />
+      </div>
+      <button type="button"
+        onClick={() => this.props.add(Number(this.numInput.value))}>+</button>
+      <button type="button"
+        onClick={() => this.props.subtract(Number(this.numInput.value))}>-</button>
+      <button type="button"
+        onClick={() => this.props.multiply(Number(this.numInput.value))}>*</button>
+      <button type="button"
+        onClick={() => this.props.divide(Number(this.numInput.value))}>/</button>
+    </form>;
+
+
   }
+
 }
 
-ReactDOM.render(<div>
-  <MyComp state="California" />
-  <MyComp state="Oregon" />
-</div>, document.querySelector('main'));
+const mapStateToProps = state => {
+  return { result: state };
+};
 
-setTimeout(() => {
-  ReactDOM.render(<div>
-    <MyComp state="Virginia" />
-    <MyComp state="Pennsylvania" />
-  </div>, document.querySelector('main'));
-}, 3000);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    add: createAddAction,
+    subtract: createSubtractAction,
+    multiply: createMultiplyAction,
+    divide: createDivideAction,
+  }, dispatch);
+};
+
+const createContainer = connect(mapStateToProps, mapDispatchToProps);
+
+const CalculatorToolContainer = createContainer(CalculatorTool);
+
+ReactDOM.render(<CalculatorToolContainer store={store} />, document.querySelector('main'));
+
