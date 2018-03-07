@@ -12,7 +12,7 @@ Pre-work, Wednesday afternoon before you leave!
 
 Coding of the project will occur all day on Thursday, donuts will be provided. Please be on time, and plan to stay all day. The day will go by fast, and you do not want to demonstrate a non-working application because you did not put in enough time to complete it.
 
-On Friday, coding can continue until 10:00am, then code reviews will start. Each team will be reviewed publicly for at least 30 mins. This is a real code review. Come prepared to explain your code and personal contribution to the class.
+On Friday, coding will continue until 9:30am, then code reviews will start and all coding will stop. Each team will be reviewed publicly for at least 20 mins. This is a real code review. Come prepared to explain your code and personal contribution to the class.
 
 ## Objective
 
@@ -24,7 +24,7 @@ The application must support 3 of 3 workflows.
 
 ### Workflow 1 - Register Voters
 
-1. Create a voter registration system which collects the following information from the voter. Fields:, First Name, Last Name, Address, County/City, Birthdate, Email, Phone
+1. Create a voter registration system which collects the following information from the voter. Fields: First Name, Last Name, Address, County/City, Birthdate, Email, Phone
 
 1. From a main screen, the user will click a "Register Voter" button. A registration form will be displayed. The user will enter the data, click "Complete Registration" and return to the main screen.
 
@@ -40,7 +40,7 @@ The application must support 3 of 3 workflows.
 
 1. The ballot should list the items under consideration with a checkbox next to each item. Checking the box is considered to be 'Yes', leaving it blank is a 'No'.
 
-1. When the ballot has completed, the user should click a 'Cast Vote' button. A success screen is shown with a button to return to the main screen.
+1. When the ballot is completed, the user should click a 'Cast Vote' button. A success screen is shown with a button to return to the main screen.
 
 ### Workflow 3 - Election Creation
 
@@ -66,7 +66,7 @@ The application must support 3 of 3 workflows.
 
 ## Conditions of Victory
 
-- Three of the three workflows are completed. 
+- Three of the three workflows are completed.
 
 - There are no errors in the console.
 
