@@ -1,0 +1,11 @@
+Exercise
+
+1. Move the Car Tool state to Redux.
+
+2. Use the REST service to the store the car data.
+
+3. Implement the REST service operations for getting, inserting, replacing, deleting car.
+
+4. Connect the Redux store to Car Tool.
+
+5. Ensure everything works.
